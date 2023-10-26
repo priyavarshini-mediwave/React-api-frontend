@@ -9,3 +9,7 @@
 # import pico
 
     import "@picocss/pico";
+
+use Routing
+
+# install axios

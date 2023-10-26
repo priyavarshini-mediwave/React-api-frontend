@@ -25,3 +25,29 @@ If you are developing a production application, we recommend updating the config
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+{/_ <div>
+<article>
+<p>
+<strong>Movie:</strong>The Lion King
+</p>
+<p>
+<strong>Year:</strong>2019
+</p>
+<div className="grid">
+<Link role="button" to="/Edit">
+&#9999;
+</Link>
+<Link role="button" to="/">
+🗑️ Delete
+</Link> _/}
+
+              {/* <button>🗑️ Delete</button> */}
+            {/* </div>
+          </article>
+        </div> */}
+        {/* <button className="outline"> */}
+        {/* <Link to="/Add" role="button" className="Add-Button">
+          +
+        </Link> */}
+        {/* </button> */}

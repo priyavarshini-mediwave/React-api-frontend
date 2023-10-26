@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
+import Layout from "../components/Layout";
 const NotFoundPage = () => {
   return (
-    <>
-      <h1>Page not found</h1>
-      <Link to="/">Go back to home?</Link>
-    </>
+    <Layout title="Not-found">
+      <div className="container">
+        <h1>Page not found</h1>
+        <Link to="/">Go back to home?</Link>
+      </div>
+    </Layout>
   );
 };
 
