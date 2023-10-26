@@ -1,0 +1,8 @@
+.Home {
+  position: relative;
+}
+.Add-Button {
+  position: absolute;
+  bottom: 50%;
+  right: 20px;
+}
