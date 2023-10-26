@@ -10,6 +10,14 @@
 
     import "@picocss/pico";
 
-use Routing
+# use Routing
 
-# install axios
+# install and import axios in api .ts
+
+    npm i axios
+    import axios from "axios";
+
+## Created using Vite+React+Typescript+axios
+
+    npm i
+    npm run dev
