@@ -35,5 +35,3 @@ Set required pages as Lazy
 
     npm i
     npm run dev
-
-## Branching for single component
