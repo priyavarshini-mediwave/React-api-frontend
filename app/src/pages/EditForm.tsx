@@ -10,6 +10,7 @@ interface IEditform {
 const EditForm: React.FC<IEditform> = ({ movie }) => {
   console.log("movie to edit:", movie);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [editDatatitle, setEditDatatitle] = useState(movie.title);
   const [editDataYear, setEditDataYear] = useState(movie.year);
   // function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -27,6 +28,7 @@ const EditForm: React.FC<IEditform> = ({ movie }) => {
         year: editDataYear,
       };
       console.log("EditPayload", moviePayload);
+      setIsLoading(true);
       const response = await updateMovie(moviePayload, movie.id);
       console.log(response);
       if (response) {
@@ -35,11 +37,13 @@ const EditForm: React.FC<IEditform> = ({ movie }) => {
     } catch (error) {
       console.log("Errored");
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
   return (
-    <Layout title={`Edit${movie.title}`}>
+    <Layout title={`Editing: ${movie.title}`}>
       <div className="container">
         <div>
           <h1>Edit Movies</h1>
@@ -66,10 +70,12 @@ const EditForm: React.FC<IEditform> = ({ movie }) => {
             onChange={(e) => setEditDataYear(parseInt(e.target.value))}
           ></input>
           <div className="grid">
-            <button className="secondary outline">SaveChanges</button>
+            <button className="secondary outline" disabled={isLoading}>
+              SaveChanges
+            </button>
 
             <button className="secondary outline">
-              <Link to="/">Cancel</Link>
+              <Link to="/"></Link>Cancel
             </button>
           </div>
         </form>

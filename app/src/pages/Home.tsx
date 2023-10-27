@@ -91,7 +91,11 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
                   <button onClick={() => handleDatatoEdit(m)}>
                     <Link to={`/edit/:${m.id}`}>&#9999;</Link>
                   </button>
-                  <button role="button" onClick={() => handleDelete(m.id)}>
+                  <button
+                    role="button"
+                    onClick={() => handleDelete(m.id)}
+                    disabled={isLoading}
+                  >
                     🗑️ Delete
                   </button>
                 </div>
