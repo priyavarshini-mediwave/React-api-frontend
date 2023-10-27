@@ -1,7 +1,8 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 import "@picocss/pico";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
+import { IMovieAdd } from "./Interfaces/Interface";
 
 import Home from "./pages/Home";
 // import AddForm from "./pages/AddForm";
@@ -12,19 +13,25 @@ import NotFoundPage from "./pages/NotFoundPage";
 function Loading() {
   return <p>Loading ...</p>;
 }
-// function onAdd(data: IMovieAdd) {
-//   console.log(data);
 
-// }
 function App() {
+  const [data, setdata] = useState<IMovieAdd>({
+    id: 0,
+    title: "",
+    year: 0,
+  });
+  function onAddtoApp(data: IMovieAdd) {
+    console.log(data);
+    setdata(data);
+  }
   return (
     <>
       <Suspense fallback={<Loading />}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home />}></Route>
+            <Route path="/" element={<Home onEditAdd={onAddtoApp} />}></Route>
             <Route path="/Add" element={<AddForm />}></Route>
-            <Route path="/Edit/:id" element={<EditForm />}></Route>
+            <Route path="/Edit/:id" element={<EditForm movie={data} />}></Route>
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>

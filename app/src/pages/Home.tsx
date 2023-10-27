@@ -5,12 +5,16 @@ import Layout from "../components/Layout";
 import { getMovies } from "../services/api";
 import Loading from "../components/Loading";
 import { deleteMovie } from "../services/api";
+import { IMovieAdd } from "../Interfaces/Interface";
 interface IMovie {
   id: number;
   title: string;
   year: number;
 }
-function Home() {
+interface IHome {
+  onEditAdd: (m: IMovieAdd) => void;
+}
+const Home: React.FC<IHome> = ({ onEditAdd }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [movies, setMovies] = useState<IMovie[]>([]);
@@ -49,11 +53,17 @@ function Home() {
       setIsLoading(false);
     }
   }
+  function handleDatatoEdit(m: IMovieAdd) {
+    console.log("ToEditMovie", m);
+    onEditAdd(m);
+  }
 
   return (
     <Layout title="Home">
       <div className="container">
-        <div className="Home">Home</div>
+        <div className="Home">
+          <h1>Your Movies List</h1>
+        </div>
         <Link to="/Add" role="button" className="Add-Button">
           +
         </Link>
@@ -69,13 +79,18 @@ function Home() {
           <div className="grid">
             {movies.map((m) => (
               <article key={m.id}>
-                <h1>{m.title}</h1>
-                <h1>{m.year}</h1>
+                <h1 className="movie-title">{m.title}</h1>
+                <label>
+                  Release Year:
+                  <span>
+                    <strong>{m.year}</strong>
+                  </span>
+                </label>
 
                 <div className="grid">
-                  <Link role="button" to={`/edit/${m.id}`}>
-                    &#9999;
-                  </Link>
+                  <button onClick={() => handleDatatoEdit(m)}>
+                    <Link to={`/edit/:${m.id}`}>&#9999;</Link>
+                  </button>
                   <button role="button" onClick={() => handleDelete(m.id)}>
                     🗑️ Delete
                   </button>
@@ -87,5 +102,5 @@ function Home() {
       </div>
     </Layout>
   );
-}
+};
 export default Home;
