@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { addMovie } from "../services/api";
 import React, { useState } from "react";
 import Loading from "../components/Loading";
+import { IShowError } from "../Interfaces/Interface";
 
 const AddForm: React.FC = () => {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const [data, setData] = useState({
     id: new Date().getTime(),
     title: "",
@@ -13,6 +14,15 @@ const AddForm: React.FC = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   //const [refresh, setRefresh] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showModalMsg, setShowModalMsg] = useState<IShowError>({
+    action: "",
+    msg: "",
+  });
+
+  const toggleModal = () => {
+    setShowModal((prevShowModal) => !prevShowModal);
+  };
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
@@ -28,13 +38,25 @@ const AddForm: React.FC = () => {
         year: data.year,
       };
       setIsLoading(true);
+      toggleModal();
       const response = await addMovie(moviePayload);
+      if (response) {
+        setShowModalMsg({
+          action: "Success",
+          msg: "Added",
+        });
+        console.log(response);
+      }
 
-      console.log(response);
-      navigate("/");
+      //navigate("/");
     } catch (error) {
-      console.log("Errored");
-      console.log(error);
+      console.log("Errored", error);
+      if (error instanceof Error) {
+        setShowModalMsg({
+          action: "failed",
+          msg: error.message,
+        });
+      }
     } finally {
       setIsLoading(false);
     }
@@ -76,6 +98,21 @@ const AddForm: React.FC = () => {
                 // onClick={() => setRefresh((prev) => !prev)}
               ></input>
             </form>
+            {showModal && (
+              <dialog open>
+                <article>
+                  <a
+                    href="/"
+                    aria-label="Close"
+                    className="close"
+                    data-target="modal-example"
+                    onClick={toggleModal}
+                  ></a>
+                  <h3>{showModalMsg.action}</h3>
+                  <p>{showModalMsg.msg}</p>
+                </article>
+              </dialog>
+            )}
           </>
         )}
       </div>

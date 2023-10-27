@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
-import { IMovieAdd } from "../Interfaces/Interface";
+import { IMovieAdd, IShowError } from "../Interfaces/Interface";
 import { useState } from "react";
 import { updateMovie } from "../services/api";
 
@@ -18,6 +18,15 @@ const EditForm: React.FC<IEditform> = ({ movie }) => {
   //   setEditData({ ...editData, [name]: value });
   //   console.log(editData);
   // }
+  const [showModal, setShowModal] = useState(false);
+  const [showModalMsg, setShowModalMsg] = useState<IShowError>({
+    action: "",
+    msg: "",
+  });
+
+  const toggleModal = () => {
+    setShowModal((prevShowModal) => !prevShowModal);
+  };
 
   async function handleEditSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -27,12 +36,18 @@ const EditForm: React.FC<IEditform> = ({ movie }) => {
         title: editDatatitle,
         year: editDataYear,
       };
+      toggleModal();
       console.log("EditPayload", moviePayload);
       setIsLoading(true);
       const response = await updateMovie(moviePayload, movie.id);
       console.log(response);
       if (response) {
-        navigate("/");
+        setShowModalMsg({
+          action: "Success",
+          msg: "Updated",
+        });
+        console.log(response);
+        //navigate("/");
       }
     } catch (error) {
       console.log("Errored");
@@ -79,6 +94,21 @@ const EditForm: React.FC<IEditform> = ({ movie }) => {
             </button>
           </div>
         </form>
+        {showModal && (
+          <dialog open>
+            <article>
+              <a
+                href="/"
+                aria-label="close"
+                className="close"
+                data-target="modal-example"
+                onClick={toggleModal}
+              ></a>
+              <h3>{showModalMsg.action}</h3>
+              <p>{showModalMsg.msg}</p>
+            </article>
+          </dialog>
+        )}
       </div>
     </Layout>
   );

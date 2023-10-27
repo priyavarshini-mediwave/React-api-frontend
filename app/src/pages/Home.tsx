@@ -5,7 +5,8 @@ import Layout from "../components/Layout";
 import { getMovies } from "../services/api";
 import Loading from "../components/Loading";
 import { deleteMovie } from "../services/api";
-import { IMovieAdd } from "../Interfaces/Interface";
+import { IMovieAdd, IShowError } from "../Interfaces/Interface";
+
 interface IMovie {
   id: number;
   title: string;
@@ -19,11 +20,22 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
   const [refresh, setRefresh] = useState(false);
   const [movies, setMovies] = useState<IMovie[]>([]);
 
+  const [showModal, setShowModal] = useState(false);
+  const [showModalMsg, setShowModalMsg] = useState<IShowError>({
+    action: "",
+    msg: "",
+  });
+
+  const toggleModal = () => {
+    setShowModal((prevShowModal) => !prevShowModal);
+  };
+
   useEffect(() => {
     console.log("Called once");
 
     async function getMoviesFromAPI() {
       setIsLoading(true);
+
       try {
         const response = await getMovies();
         console.log(response.data);
@@ -41,14 +53,25 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
   async function handleDelete(id: number) {
     setIsLoading(true);
     console.log("deleteid", id);
+    toggleModal();
     try {
       const response = await deleteMovie(id);
       console.log(response.data);
       if (response) {
-        setRefresh(true);
+        setShowModalMsg({
+          action: "Succes",
+          msg: "Deleted",
+        });
       }
+      setRefresh(true);
     } catch (error) {
       console.log(error);
+      if (error instanceof Error) {
+        setShowModalMsg({
+          action: "Failed",
+          msg: error.message,
+        });
+      }
     } finally {
       setIsLoading(false);
     }
@@ -98,6 +121,21 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
                   >
                     🗑️ Delete
                   </button>
+                  {showModal && (
+                    <dialog open>
+                      <article>
+                        <a
+                          href="#close"
+                          aria-label="Close"
+                          className="close"
+                          data-target="modal-example"
+                          onClick={toggleModal}
+                        ></a>
+                        <h3>{showModalMsg.action}</h3>
+                        <p>{showModalMsg.msg}</p>
+                      </article>
+                    </dialog>
+                  )}
                 </div>
               </article>
             ))}

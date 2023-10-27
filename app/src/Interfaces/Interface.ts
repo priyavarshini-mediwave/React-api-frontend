@@ -7,4 +7,8 @@ interface IMovieAdd {
   title: string;
   year: number;
 }
-export type { ILayout, IMovieAdd };
+interface IShowError {
+  action: string;
+  msg: string;
+}
+export type { ILayout, IMovieAdd, IShowError };
