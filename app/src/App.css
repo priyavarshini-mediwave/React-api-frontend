@@ -7,3 +7,19 @@
 span {
   margin-left: 15px;
 }
+.cardButtons {
+  background: none;
+  display: flex;
+  justify-content: end;
+  gap: 30px;
+}
+.editButton {
+  background: none;
+  width: 100px;
+  color: #1095c1;
+}
+.deleteButton {
+  background: none;
+  width: 100px;
+  color: #1095c1;
+}

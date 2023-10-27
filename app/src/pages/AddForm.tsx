@@ -1,12 +1,11 @@
 import Layout from "../components/Layout";
-import { useNavigate } from "react-router-dom";
+
 import { addMovie } from "../services/api";
 import React, { useState } from "react";
 import Loading from "../components/Loading";
 import { IShowError } from "../Interfaces/Interface";
 
 const AddForm: React.FC = () => {
-  //const navigate = useNavigate();
   const [data, setData] = useState({
     id: new Date().getTime(),
     title: "",
@@ -91,12 +90,7 @@ const AddForm: React.FC = () => {
                 required
                 onChange={(e) => handleInputChange(e)}
               ></input>
-              <input
-                type="submit"
-                value="Submit"
-                disabled={isLoading}
-                // onClick={() => setRefresh((prev) => !prev)}
-              ></input>
+              <input type="submit" value="Submit" disabled={isLoading}></input>
             </form>
             {showModal && (
               <dialog open>

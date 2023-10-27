@@ -5,7 +5,7 @@ import "./App.css";
 import { IMovieAdd } from "./Interfaces/Interface";
 
 import Home from "./pages/Home";
-// import AddForm from "./pages/AddForm";
+
 const AddForm = lazy(() => import("./pages/AddForm"));
 const EditForm = lazy(() => import("./pages/EditForm"));
 import NotFoundPage from "./pages/NotFoundPage";

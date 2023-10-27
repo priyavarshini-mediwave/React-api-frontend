@@ -7,18 +7,18 @@ import Loading from "../components/Loading";
 import { deleteMovie } from "../services/api";
 import { IMovieAdd, IShowError } from "../Interfaces/Interface";
 
-interface IMovie {
-  id: number;
-  title: string;
-  year: number;
-}
+// interface IMovie {
+//   id: number;
+//   title: string;
+//   year: number;
+// }
 interface IHome {
   onEditAdd: (m: IMovieAdd) => void;
 }
 const Home: React.FC<IHome> = ({ onEditAdd }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
-  const [movies, setMovies] = useState<IMovie[]>([]);
+  const [movies, setMovies] = useState<IMovieAdd[]>([]);
 
   const [showModal, setShowModal] = useState(false);
   const [showModalMsg, setShowModalMsg] = useState<IShowError>({
@@ -110,12 +110,15 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
                   </span>
                 </label>
 
-                <div className="grid">
-                  <button onClick={() => handleDatatoEdit(m)}>
-                    <Link to={`/edit/:${m.id}`}>&#9999;</Link>
+                <div className="cardButtons">
+                  <button
+                    className="editButton"
+                    onClick={() => handleDatatoEdit(m)}
+                  >
+                    <Link to={`/edit/:${m.id}`}>&#9999; Edit</Link>
                   </button>
                   <button
-                    role="button"
+                    className="deleteButton"
                     onClick={() => handleDelete(m.id)}
                     disabled={isLoading}
                   >
