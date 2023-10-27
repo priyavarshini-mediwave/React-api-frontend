@@ -98,14 +98,21 @@ const EditForm: React.FC<IEditform> = ({ movie }) => {
           <dialog open>
             <article>
               <a
-                href="/"
+                href="#close"
                 aria-label="close"
                 className="close"
                 data-target="modal-example"
                 onClick={toggleModal}
               ></a>
+
               <h3>{showModalMsg.action}</h3>
               <p>{showModalMsg.msg}</p>
+
+              <footer>
+                <a href="/" role="button">
+                  Confirm
+                </a>
+              </footer>
             </article>
           </dialog>
         )}

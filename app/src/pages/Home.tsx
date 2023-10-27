@@ -133,6 +133,12 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
                         ></a>
                         <h3>{showModalMsg.action}</h3>
                         <p>{showModalMsg.msg}</p>
+
+                        <footer>
+                          <a href="/" role="button">
+                            Ok
+                          </a>
+                        </footer>
                       </article>
                     </dialog>
                   )}

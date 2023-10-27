@@ -110,6 +110,11 @@ const AddForm: React.FC = () => {
                   ></a>
                   <h3>{showModalMsg.action}</h3>
                   <p>{showModalMsg.msg}</p>
+                  <footer>
+                    <a href="/" role="button">
+                      Confirm
+                    </a>
+                  </footer>
                 </article>
               </dialog>
             )}
