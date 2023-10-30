@@ -6,6 +6,7 @@ import { getMovies } from "../services/api";
 import Loading from "../components/Loading";
 import { deleteMovie } from "../services/api";
 import { IMovieAdd, IShowError } from "../Interfaces/Interface";
+import Form from "../components/Form";
 
 // interface IMovie {
 //   id: number;
@@ -82,76 +83,78 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
   }
 
   return (
-    <Layout title="Home">
-      <div className="container">
-        <div className="Home">
-          <h1>Your Movies List</h1>
-        </div>
-        <Link to="/Add" role="button" className="Add-Button">
-          +
-        </Link>
-        <button
-          disabled={isLoading}
-          onClick={() => setRefresh((prev) => !prev)}
-        >
-          Refresh
-        </button>
-        {isLoading ? (
-          <Loading />
-        ) : (
-          <div className="grid">
-            {movies.map((m) => (
-              <article key={m.id}>
-                <h1 className="movie-title">{m.title}</h1>
-                <label>
-                  Release Year:
-                  <span>
-                    <strong>{m.year}</strong>
-                  </span>
-                </label>
-
-                <div className="cardButtons">
-                  <button
-                    className="editButton"
-                    onClick={() => handleDatatoEdit(m)}
-                  >
-                    <Link to={`/edit/:${m.id}`}>&#9999; Edit</Link>
-                  </button>
-                  <button
-                    className="deleteButton"
-                    onClick={() => handleDelete(m.id)}
-                    disabled={isLoading}
-                  >
-                    🗑️ Delete
-                  </button>
-                  {showModal && (
-                    <dialog open>
-                      <article>
-                        <a
-                          href="#close"
-                          aria-label="Close"
-                          className="close"
-                          data-target="modal-example"
-                          onClick={toggleModal}
-                        ></a>
-                        <h3>{showModalMsg.action}</h3>
-                        <p>{showModalMsg.msg}</p>
-
-                        <footer>
-                          <a href="/" role="button">
-                            Ok
-                          </a>
-                        </footer>
-                      </article>
-                    </dialog>
-                  )}
-                </div>
-              </article>
-            ))}
+    <>
+      <Layout title="Home">
+        <div className="container">
+          <div className="Home">
+            <h1>Your Movies List</h1>
           </div>
-        )}
-      </div>
-    </Layout>
+          <Link to="/Add" role="button" className="Add-Button">
+            +
+          </Link>
+          <button
+            disabled={isLoading}
+            onClick={() => setRefresh((prev) => !prev)}
+          >
+            Refresh
+          </button>
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <div className="grid">
+              {movies.map((m) => (
+                <article key={m.id}>
+                  <h1 className="movie-title">{m.title}</h1>
+                  <label>
+                    Release Year:
+                    <span>
+                      <strong>{m.year}</strong>
+                    </span>
+                  </label>
+
+                  <div className="cardButtons">
+                    <button
+                      className="editButton"
+                      onClick={() => handleDatatoEdit(m)}
+                    >
+                      <Link to={`/edit/:${m.id}`}>&#9999; Edit</Link>
+                    </button>
+                    <button
+                      className="deleteButton"
+                      onClick={() => handleDelete(m.id)}
+                      disabled={isLoading}
+                    >
+                      🗑️ Delete
+                    </button>
+                    {showModal && (
+                      <dialog open>
+                        <article>
+                          <a
+                            href="#close"
+                            aria-label="Close"
+                            className="close"
+                            data-target="modal-example"
+                            onClick={toggleModal}
+                          ></a>
+                          <h3>{showModalMsg.action}</h3>
+                          <p>{showModalMsg.msg}</p>
+
+                          <footer>
+                            <a href="/" role="button">
+                              Ok
+                            </a>
+                          </footer>
+                        </article>
+                      </dialog>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+        </div>
+      </Layout>
+    </>
   );
 };
 export default Home;
