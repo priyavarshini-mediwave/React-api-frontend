@@ -2,9 +2,10 @@ import Layout from "../components/Layout";
 import Modal from "../components/Modal";
 import { addMovie } from "../services/api";
 import React, { useState } from "react";
-import Loading from "../components/Loading";
+import Loading from "../components/Loading/LoadingIcon";
 import { IMovieAdd, IShowError } from "../Interfaces/Interface";
 import Form from "../components/Form";
+import LoadingIcon from "../components/Loading/LoadingIcon";
 const AddForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   //const [refresh, setRefresh] = useState(false);
@@ -26,6 +27,9 @@ const AddForm: React.FC = () => {
         year: movie.year,
       };
       setIsLoading(true);
+      {
+        isLoading ? <LoadingIcon /> : <></>;
+      }
       toggleModal();
       const response = await addMovie(moviePayload);
       if (response) {

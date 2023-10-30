@@ -1,12 +1,13 @@
+import { Link } from "react-router-dom";
 import { IShowError } from "../Interfaces/Interface";
 
 interface IModal {
   errorMsg: IShowError;
   closeModal: () => void;
-  //navigateToHome?: () => void;
+  navigateToHome?: () => void;
 }
 
-const Modal: React.FC<IModal> = ({ errorMsg, closeModal }) => {
+const Modal: React.FC<IModal> = ({ errorMsg, closeModal, navigateToHome }) => {
   return (
     <dialog open>
       <article>
@@ -19,14 +20,14 @@ const Modal: React.FC<IModal> = ({ errorMsg, closeModal }) => {
         <h3>{errorMsg.action}</h3>
         <p>{errorMsg.msg}</p>
         <footer>
-          <a
-            href="/"
+          <Link
+            to="/"
             role="button"
             data-target="modal-example"
-            // onClick={() => navigateToHome()}
+            onClick={navigateToHome}
           >
             Confirm
-          </a>
+          </Link>
         </footer>
       </article>
     </dialog>

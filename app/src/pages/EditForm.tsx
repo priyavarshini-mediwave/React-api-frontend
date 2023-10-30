@@ -3,8 +3,9 @@ import { IMovieAdd, IShowError } from "../Interfaces/Interface";
 import { useState } from "react";
 import { updateMovie } from "../services/api";
 import Form from "../components/Form";
-import Loading from "../components/Loading";
+
 import Modal from "../components/Modal";
+import LoadingIcon from "../components/Loading/LoadingIcon";
 
 interface IEditform {
   movie: IMovieAdd;
@@ -34,6 +35,9 @@ const EditForm: React.FC<IEditform> = ({ movie }) => {
       toggleModal();
       console.log("EditPayload", moviePayload);
       setIsLoading(true);
+      {
+        isLoading ? <LoadingIcon /> : <></>;
+      }
       const response = await updateMovie(moviePayload, movie.id);
       console.log(response);
       if (response) {
@@ -56,7 +60,10 @@ const EditForm: React.FC<IEditform> = ({ movie }) => {
     <>
       <Layout title={`Editing: ${movie.title}`}>
         {isLoading ? (
-          <Loading />
+          <>
+            <p>Loading...</p>
+            <LoadingIcon />
+          </>
         ) : (
           <>
             <Form

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../App.css";
 import Layout from "../components/Layout";
 import { getMovies } from "../services/api";
-import Loading from "../components/Loading";
+import LoadingIcon from "../components/Loading/LoadingIcon";
 import { deleteMovie } from "../services/api";
 import { IMovieAdd, IShowError } from "../Interfaces/Interface";
 import Modal from "../components/Modal";
@@ -25,7 +25,9 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
   const toggleModal = () => {
     setShowModal((prevShowModal) => !prevShowModal);
   };
-
+  const bringback = () => {
+    setShowModal(false);
+  };
   useEffect(() => {
     console.log("Called once");
 
@@ -101,10 +103,14 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
             disabled={isLoading}
             onClick={() => setRefresh((prev) => !prev)}
           >
+            {isLoading ? <LoadingIcon /> : <></>}
             Refresh
           </button>
           {isLoading ? (
-            <Loading />
+            <>
+              <p>Loading Movies</p>
+              <LoadingIcon />
+            </>
           ) : (
             <div className="grid">
               {movies.map((m) => (
@@ -126,9 +132,10 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
                     </button>
                     <button
                       className="deleteButton"
-                      onClick={() => handleDelete(m.id)}
                       disabled={isLoading}
+                      onClick={() => handleDelete(m.id)}
                     >
+                      {isLoading ? <LoadingIcon /> : <></>}
                       🗑️ Delete
                     </button>
                   </div>
@@ -138,7 +145,13 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
           )}
         </div>
       </Layout>
-      {showModal && <Modal errorMsg={showModalMsg} closeModal={toggleModal} />}
+      {showModal && (
+        <Modal
+          errorMsg={showModalMsg}
+          closeModal={toggleModal}
+          navigateToHome={bringback}
+        />
+      )}
     </>
   );
 };
