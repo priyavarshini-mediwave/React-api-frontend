@@ -61,11 +61,12 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
   async function handleDelete(id: number) {
     setIsLoading(true);
     console.log("deleteid", id);
-    toggleModal();
+
     try {
       const response = await deleteMovie(id);
       console.log(response.data);
       if (response) {
+        toggleModal();
         setShowModalMsg({
           action: "Success",
           msg: "Deleted",
@@ -75,6 +76,7 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
     } catch (error) {
       console.log(error);
       if (error instanceof Error) {
+        toggleModal();
         setShowModalMsg({
           action: "Failed",
           msg: error.message,
@@ -106,43 +108,42 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
             {isLoading ? <LoadingIcon /> : <></>}
             Refresh
           </button>
-          {isLoading ? (
+          {/* {isLoading ? (
             <>
               <p>Loading Movies</p>
               <LoadingIcon />
             </>
-          ) : (
-            <div className="grid">
-              {movies.map((m) => (
-                <article key={m.id}>
-                  <h1 className="movie-title">{m.title}</h1>
-                  <label>
-                    Release Year:
-                    <span>
-                      <strong>{m.year}</strong>
-                    </span>
-                  </label>
+          ) : ( */}
+          <div className="grid">
+            {movies.map((m) => (
+              <article key={m.id}>
+                <h1 className="movie-title">{m.title}</h1>
+                <label>
+                  Release Year:
+                  <span>
+                    <strong>{m.year}</strong>
+                  </span>
+                </label>
 
-                  <div className="cardButtons">
-                    <button
-                      className="editButton"
-                      onClick={() => handleDatatoEdit(m)}
-                    >
-                      <Link to={`/edit/:${m.id}`}>&#9999; Edit</Link>
-                    </button>
-                    <button
-                      className="deleteButton"
-                      disabled={isLoading}
-                      onClick={() => handleDelete(m.id)}
-                    >
-                      {isLoading ? <LoadingIcon /> : <></>}
-                      🗑️ Delete
-                    </button>
-                  </div>
-                </article>
-              ))}
-            </div>
-          )}
+                <div className="cardButtons">
+                  <button
+                    className="editButton"
+                    onClick={() => handleDatatoEdit(m)}
+                  >
+                    <Link to={`/edit/:${m.id}`}>&#9999; Edit</Link>
+                  </button>
+                  <button
+                    className="deleteButton"
+                    // disabled={isLoading}
+                    onClick={() => handleDelete(m.id)}
+                  >
+                    {isLoading ? <LoadingIcon /> : <>🗑️ Delete</>}
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+          {/* )} */}
         </div>
       </Layout>
       {showModal && (
