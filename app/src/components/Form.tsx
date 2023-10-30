@@ -11,7 +11,7 @@ const Form: React.FC<IForm> = ({ type, addingMovie, movieToEdit }) => {
     movieToEdit || {
       id: 0,
       title: "",
-      year: 0,
+      year: undefined,
     }
   );
   // console.log("movieFrom:", movieToEdit);
@@ -45,7 +45,7 @@ const Form: React.FC<IForm> = ({ type, addingMovie, movieToEdit }) => {
           type="number"
           name="year"
           id="year"
-          value={movie.year}
+          value={movie.year?.toString() || ""}
           placeholder="Enter the movie Release Year"
           required
           onChange={(e) => handleInputChange(e)}

@@ -5,7 +5,7 @@ interface ILayout {
 interface IMovieAdd {
   id: number;
   title: string;
-  year: number;
+  year: undefined | number;
 }
 interface IShowError {
   action: string;

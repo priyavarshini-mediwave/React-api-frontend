@@ -6,13 +6,7 @@ import { getMovies } from "../services/api";
 import Loading from "../components/Loading";
 import { deleteMovie } from "../services/api";
 import { IMovieAdd, IShowError } from "../Interfaces/Interface";
-import Form from "../components/Form";
 
-// interface IMovie {
-//   id: number;
-//   title: string;
-//   year: number;
-// }
 interface IHome {
   onEditAdd: (m: IMovieAdd) => void;
 }
