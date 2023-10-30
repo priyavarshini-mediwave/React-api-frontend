@@ -1,5 +1,5 @@
 import Layout from "../components/Layout";
-
+import Modal from "../components/Modal";
 import { addMovie } from "../services/api";
 import React, { useState } from "react";
 import Loading from "../components/Loading";
@@ -68,24 +68,7 @@ const AddForm: React.FC = () => {
               />
 
               {showModal && (
-                <dialog open>
-                  <article>
-                    <a
-                      href="/"
-                      aria-label="Close"
-                      className="close"
-                      data-target="modal-example"
-                      onClick={toggleModal}
-                    ></a>
-                    <h3>{showModalMsg.action}</h3>
-                    <p>{showModalMsg.msg}</p>
-                    <footer>
-                      <a href="/" role="button">
-                        Confirm
-                      </a>
-                    </footer>
-                  </article>
-                </dialog>
+                <Modal errorMsg={showModalMsg} closeModal={toggleModal} />
               )}
             </>
           )}

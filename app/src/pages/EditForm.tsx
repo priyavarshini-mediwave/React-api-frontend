@@ -4,6 +4,7 @@ import { useState } from "react";
 import { updateMovie } from "../services/api";
 import Form from "../components/Form";
 import Loading from "../components/Loading";
+import Modal from "../components/Modal";
 
 interface IEditform {
   movie: IMovieAdd;
@@ -64,26 +65,7 @@ const EditForm: React.FC<IEditform> = ({ movie }) => {
               movieToEdit={movie}
             />
             {showModal && (
-              <dialog open>
-                <article>
-                  <a
-                    href="#close"
-                    aria-label="close"
-                    className="close"
-                    data-target="modal-example"
-                    onClick={toggleModal}
-                  ></a>
-
-                  <h3>{showModalMsg.action}</h3>
-                  <p>{showModalMsg.msg}</p>
-
-                  <footer>
-                    <a href="/" role="button">
-                      Confirm
-                    </a>
-                  </footer>
-                </article>
-              </dialog>
+              <Modal errorMsg={showModalMsg} closeModal={toggleModal} />
             )}
           </>
         )}

@@ -6,6 +6,7 @@ import { getMovies } from "../services/api";
 import Loading from "../components/Loading";
 import { deleteMovie } from "../services/api";
 import { IMovieAdd, IShowError } from "../Interfaces/Interface";
+import Modal from "../components/Modal";
 
 interface IHome {
   onEditAdd: (m: IMovieAdd) => void;
@@ -34,9 +35,19 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
       try {
         const response = await getMovies();
         console.log(response.data);
-        setMovies(response.data);
+        if (response) {
+          setMovies(response.data);
+        }
       } catch (error) {
         console.log(error);
+
+        if (error instanceof Error) {
+          toggleModal();
+          setShowModalMsg({
+            action: "Failed",
+            msg: error.message,
+          });
+        }
       } finally {
         setIsLoading(false);
       }
@@ -54,11 +65,11 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
       console.log(response.data);
       if (response) {
         setShowModalMsg({
-          action: "Succes",
+          action: "Success",
           msg: "Deleted",
         });
       }
-      setRefresh(true);
+      setRefresh((prev) => !prev);
     } catch (error) {
       console.log(error);
       if (error instanceof Error) {
@@ -120,27 +131,6 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
                     >
                       🗑️ Delete
                     </button>
-                    {showModal && (
-                      <dialog open>
-                        <article>
-                          <a
-                            href="#close"
-                            aria-label="Close"
-                            className="close"
-                            data-target="modal-example"
-                            onClick={toggleModal}
-                          ></a>
-                          <h3>{showModalMsg.action}</h3>
-                          <p>{showModalMsg.msg}</p>
-
-                          <footer>
-                            <a href="/" role="button">
-                              Ok
-                            </a>
-                          </footer>
-                        </article>
-                      </dialog>
-                    )}
                   </div>
                 </article>
               ))}
@@ -148,6 +138,7 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
           )}
         </div>
       </Layout>
+      {showModal && <Modal errorMsg={showModalMsg} closeModal={toggleModal} />}
     </>
   );
 };
