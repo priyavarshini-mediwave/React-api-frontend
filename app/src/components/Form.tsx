@@ -1,12 +1,14 @@
 import { IMovieAdd } from "../Interfaces/Interface";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import LoadingIcon from "./Loading/LoadingIcon";
 interface IForm {
   type: string;
   addingMovie?: (m: IMovieAdd) => void;
   movieToEdit?: IMovieAdd;
+  loading: boolean;
 }
-const Form: React.FC<IForm> = ({ type, addingMovie, movieToEdit }) => {
+const Form: React.FC<IForm> = ({ type, addingMovie, movieToEdit, loading }) => {
   const [movie, setMovie] = useState<IMovieAdd>(
     movieToEdit || {
       id: 0,
@@ -19,7 +21,7 @@ const Form: React.FC<IForm> = ({ type, addingMovie, movieToEdit }) => {
     const { name, value } = e.target;
     setMovie({ ...movie, [name]: value });
   }
-  console.log("Say Movie:", movie);
+  //console.log("Say Movie:", movie);
   function handleAdd(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (addingMovie) {
@@ -54,8 +56,8 @@ const Form: React.FC<IForm> = ({ type, addingMovie, movieToEdit }) => {
         {type === "edit" ? (
           <>
             <div className="form-input Edit-buttons">
-              <button type="submit" className="form-btn">
-                Update
+              <button type="submit" className="form-btn" disabled={loading}>
+                {loading ? <LoadingIcon /> : <>Save</>}
               </button>
               <Link to="/" role="button" className="form-btn">
                 Cancel
@@ -65,8 +67,8 @@ const Form: React.FC<IForm> = ({ type, addingMovie, movieToEdit }) => {
         ) : (
           <>
             <div className="form-input home-buttons">
-              <button type="submit" className="form-btn">
-                Add movie
+              <button type="submit" className="form-btn" disabled={loading}>
+                {loading ? <LoadingIcon /> : <>Add Movie</>}
               </button>
               <Link to="/" role="button" className="form-btn">
                 Back

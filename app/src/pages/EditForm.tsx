@@ -8,10 +8,10 @@ import Modal from "../components/Modal";
 import LoadingIcon from "../components/Loading/LoadingIcon";
 
 interface IEditform {
-  movie: IMovieAdd;
+  movietoEdit: IMovieAdd;
 }
-const EditForm: React.FC<IEditform> = ({ movie }) => {
-  console.log("movie to edit:", movie);
+const EditForm: React.FC<IEditform> = ({ movietoEdit }) => {
+  console.log("movie to edit:", movietoEdit);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,7 +32,6 @@ const EditForm: React.FC<IEditform> = ({ movie }) => {
         title: movie.title,
         year: movie.year,
       };
-      toggleModal();
       console.log("EditPayload", moviePayload);
       setIsLoading(true);
       {
@@ -43,7 +42,7 @@ const EditForm: React.FC<IEditform> = ({ movie }) => {
       if (response) {
         setShowModalMsg({
           action: "Success",
-          msg: "Updated",
+          msg: `Updated Movie "${movietoEdit.title}" to "${movie.title}" and "Year:${movie.year}" Successfullly`,
         });
         console.log(response);
         //navigate("/");
@@ -52,30 +51,32 @@ const EditForm: React.FC<IEditform> = ({ movie }) => {
       console.log("Errored");
       console.log(error);
     } finally {
+      toggleModal();
       setIsLoading(false);
     }
   }
 
   return (
     <>
-      <Layout title={`Editing: ${movie.title}`}>
-        {isLoading ? (
+      <Layout title={`Editing: ${movietoEdit.title}`}>
+        {/* {isLoading ? (
           <>
             <p>Loading...</p>
             <LoadingIcon />
           </>
-        ) : (
-          <>
-            <Form
-              type="edit"
-              addingMovie={(movie) => handleEditfromFrom(movie)}
-              movieToEdit={movie}
-            />
-            {showModal && (
-              <Modal errorMsg={showModalMsg} closeModal={toggleModal} />
-            )}
-          </>
-        )}
+        ) : ( */}
+        <>
+          <Form
+            type="edit"
+            addingMovie={(movie) => handleEditfromFrom(movie)}
+            movieToEdit={movietoEdit}
+            loading={isLoading}
+          />
+          {showModal && (
+            <Modal errorMsg={showModalMsg} closeModal={toggleModal} />
+          )}
+        </>
+        {/* )} */}
       </Layout>
     </>
   );

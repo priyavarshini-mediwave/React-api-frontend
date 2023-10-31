@@ -20,22 +20,21 @@ const AddForm: React.FC = () => {
   };
 
   async function handleAddfromForm(movie: IMovieAdd) {
+    setIsLoading(true);
     try {
       const moviePayload = {
         id: movie.id,
         title: movie.title,
         year: movie.year,
       };
-      setIsLoading(true);
       {
         isLoading ? <LoadingIcon /> : <></>;
       }
-      toggleModal();
       const response = await addMovie(moviePayload);
       if (response) {
         setShowModalMsg({
           action: "Success",
-          msg: "Added",
+          msg: `Movie  "${moviePayload.title}" Added Successfully`,
         });
         console.log(response);
       }
@@ -51,6 +50,7 @@ const AddForm: React.FC = () => {
       }
     } finally {
       setIsLoading(false);
+      toggleModal();
     }
   }
 
@@ -58,24 +58,25 @@ const AddForm: React.FC = () => {
     <>
       <Layout title="AddForm">
         <div className="container">
-          {isLoading ? (
+          {/* {isLoading ? (
             <Loading />
-          ) : (
-            <>
-              <div>
-                <h1>Add New Movies</h1>
-              </div>
+          ) : ( */}
+          <>
+            <div>
+              <h1>Add New Movies</h1>
+            </div>
 
-              <Form
-                type="add"
-                addingMovie={(movie) => handleAddfromForm(movie)}
-              />
+            <Form
+              type="add"
+              addingMovie={(movie) => handleAddfromForm(movie)}
+              loading={isLoading}
+            />
 
-              {showModal && (
-                <Modal errorMsg={showModalMsg} closeModal={toggleModal} />
-              )}
-            </>
-          )}
+            {showModal && (
+              <Modal errorMsg={showModalMsg} closeModal={toggleModal} />
+            )}
+          </>
+          {/* )} */}
         </div>
       </Layout>
     </>

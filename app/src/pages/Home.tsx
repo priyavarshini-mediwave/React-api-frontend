@@ -22,6 +22,8 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
     msg: "",
   });
 
+  const [movieLoadingStates, setMovieLoadingStates] = useState<boolean[]>([]);
+
   const toggleModal = () => {
     setShowModal((prevShowModal) => !prevShowModal);
   };
@@ -40,6 +42,7 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
         if (response) {
           setMovies(response.data);
         }
+        setMovieLoadingStates(new Array(response.data.length).fill(false));
       } catch (error) {
         console.log(error);
 
@@ -58,10 +61,13 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
     getMoviesFromAPI();
   }, [refresh]);
 
-  async function handleDelete(id: number) {
+  async function handleDelete(id: number, index: number) {
     setIsLoading(true);
     console.log("deleteid", id);
-
+    const updatedLoadingStates = [...movieLoadingStates];
+    updatedLoadingStates[index] = true;
+    setMovieLoadingStates(updatedLoadingStates);
+    console.log("updatedLoadingStates", updatedLoadingStates);
     try {
       const response = await deleteMovie(id);
       console.log(response.data);
@@ -69,7 +75,7 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
         toggleModal();
         setShowModalMsg({
           action: "Success",
-          msg: "Deleted",
+          msg: ` Movie "${response.data.title}" Deleted`,
         });
       }
       setRefresh((prev) => !prev);
@@ -84,6 +90,8 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
       }
     } finally {
       setIsLoading(false);
+      updatedLoadingStates[index] = false;
+      setMovieLoadingStates(updatedLoadingStates);
     }
   }
   function handleDatatoEdit(m: IMovieAdd) {
@@ -111,11 +119,10 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
           {/* {isLoading ? (
             <>
               <p>Loading Movies</p>
-              <LoadingIcon />
             </>
           ) : ( */}
           <div className="grid">
-            {movies.map((m) => (
+            {movies.map((m, index) => (
               <article key={m.id}>
                 <h1 className="movie-title">{m.title}</h1>
                 <label>
@@ -134,10 +141,14 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
                   </button>
                   <button
                     className="deleteButton"
-                    // disabled={isLoading}
-                    onClick={() => handleDelete(m.id)}
+                    disabled={movieLoadingStates[index]}
+                    onClick={() => handleDelete(m.id, index)}
                   >
-                    {isLoading ? <LoadingIcon /> : <>🗑️ Delete</>}
+                    {movieLoadingStates[index] ? (
+                      <LoadingIcon />
+                    ) : (
+                      <>🗑️ Delete</>
+                    )}
                   </button>
                 </div>
               </article>

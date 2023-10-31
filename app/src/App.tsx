@@ -31,7 +31,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Home onEditAdd={onAddtoApp} />}></Route>
             <Route path="/Add" element={<AddForm />}></Route>
-            <Route path="/Edit/:id" element={<EditForm movie={data} />}></Route>
+            <Route
+              path="/Edit/:id"
+              element={<EditForm movietoEdit={data} />}
+            ></Route>
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
