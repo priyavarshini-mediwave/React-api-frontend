@@ -68,3 +68,21 @@ span {
     transform: rotate(360deg);
   }
 }
+@media (min-width: 768px) {
+  .cardsGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+}
+@media (min-width: 1280px) {
+  .cardsGrid {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 50px;
+  }
+}
+@media (min-width: 1920px) {
+  .cardsGrid {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 50px;
+  }
+}

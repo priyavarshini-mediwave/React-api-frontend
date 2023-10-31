@@ -121,7 +121,7 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
               <p>Loading Movies</p>
             </>
           ) : ( */}
-          <div className="grid">
+          <div className="grid cardsGrid">
             {movies.map((m, index) => (
               <article className="card" key={m.id}>
                 <h1 className="movie-title">{m.title}</h1>
