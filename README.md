@@ -36,4 +36,8 @@ Set required pages as Lazy
     npm i
     npm run dev
 
-branch readme.
+# Components branch readme.
+
+## Made Form into separate component
+
+## Added LoadingIcon to Api Requests.
