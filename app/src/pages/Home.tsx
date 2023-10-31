@@ -106,7 +106,7 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
           <div className="Home">
             <h1>Your Movies List</h1>
           </div>
-          <Link to="/Add" role="button" className="Add-Button">
+          <Link to="/Add" role="button" className="Add-Button outline">
             +
           </Link>
           <button
@@ -123,7 +123,7 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
           ) : ( */}
           <div className="grid">
             {movies.map((m, index) => (
-              <article key={m.id}>
+              <article className="card" key={m.id}>
                 <h1 className="movie-title">{m.title}</h1>
                 <label>
                   Release Year:
@@ -147,7 +147,7 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
                     {movieLoadingStates[index] ? (
                       <LoadingIcon />
                     ) : (
-                      <>🗑️ Delete</>
+                      <>🗑️ Delete </>
                     )}
                   </button>
                 </div>

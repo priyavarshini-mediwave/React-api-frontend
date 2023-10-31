@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 
 const AddForm = lazy(() => import("./pages/AddForm"));
 const EditForm = lazy(() => import("./pages/EditForm"));
-import NotFoundPage from "./pages/NotFoundPage";
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
 function Loading() {
   return <p>Loading ...</p>;

@@ -56,23 +56,31 @@ const Form: React.FC<IForm> = ({ type, addingMovie, movieToEdit, loading }) => {
         {type === "edit" ? (
           <>
             <div className="form-input Edit-buttons">
-              <button type="submit" className="form-btn" disabled={loading}>
-                {loading ? <LoadingIcon /> : <>Save</>}
-              </button>
-              <Link to="/" role="button" className="form-btn">
+              <Link to="/" role="button" className="form-btn cancelBtn">
                 Cancel
               </Link>
+              <button
+                type="submit"
+                className="form-btn saveBtn"
+                disabled={loading}
+              >
+                {loading ? <LoadingIcon /> : <>Save</>}
+              </button>
             </div>
           </>
         ) : (
           <>
-            <div className="form-input home-buttons">
-              <button type="submit" className="form-btn" disabled={loading}>
-                {loading ? <LoadingIcon /> : <>Add Movie</>}
-              </button>
-              <Link to="/" role="button" className="form-btn">
-                Back
+            <div className="form-input AddFormbuttons">
+              <Link to="/" role="button" className="form-btn cancelBtn">
+                Cancel
               </Link>
+              <button
+                type="submit"
+                className="form-btn AddMovieBtn"
+                disabled={loading}
+              >
+                {loading ? <LoadingIcon /> : <>Add </>}
+              </button>
             </div>
           </>
         )}

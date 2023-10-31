@@ -2,7 +2,6 @@ import Layout from "../components/Layout";
 import Modal from "../components/Modal";
 import { addMovie } from "../services/api";
 import React, { useState } from "react";
-import Loading from "../components/Loading/LoadingIcon";
 import { IMovieAdd, IShowError } from "../Interfaces/Interface";
 import Form from "../components/Form";
 import LoadingIcon from "../components/Loading/LoadingIcon";

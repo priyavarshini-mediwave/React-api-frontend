@@ -1,11 +1,18 @@
 .Add-Button {
-  margin-bottom: 30px;
+  margin-bottom: 50px;
+  font-size: x-large;
+  font-weight: bolder;
 }
 .Home h1 {
   text-align: center;
 }
 span {
   margin-left: 15px;
+}
+.card {
+  border-radius: 15px;
+  border: 1px solid #1095c1;
+  box-shadow: 15px 15px #1095c1;
 }
 .cardButtons {
   background: none;
@@ -20,9 +27,34 @@ span {
 }
 .deleteButton {
   background: none;
-  width: 100px;
-  color: #1095c1;
+  width: 125px;
+  /* color: #1095c1; */
+  color: rgb(239, 103, 103);
+
+  font-size: large;
+  font-weight: bolder;
 }
+.Edit-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.saveBtn {
+  width: 100px;
+  height: 60px;
+}
+.cancelBtn {
+  width: 100px;
+  height: 60px;
+}
+.AddFormbuttons {
+  display: flex;
+  justify-content: space-between;
+}
+.AddMovieBtn {
+  width: 100px;
+  height: 60px;
+}
+
 .LoadingIcon {
   width: 50px;
   height: 50px;
