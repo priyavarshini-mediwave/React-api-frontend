@@ -35,3 +35,5 @@ Set required pages as Lazy
 
     npm i
     npm run dev
+
+## Separate components and Loading Icon - # Refer Branch "components".
