@@ -17,6 +17,9 @@ const Form: React.FC<IForm> = ({ type, addingMovie, movieToEdit, loading }) => {
     }
   );
   // console.log("movieFrom:", movieToEdit);
+  console.log("loading", loading);
+  const [newLoading, setnewLoading] = useState(loading);
+  console.log("newLoading", newLoading);
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setMovie({ ...movie, [name]: value });
@@ -24,6 +27,8 @@ const Form: React.FC<IForm> = ({ type, addingMovie, movieToEdit, loading }) => {
   //console.log("Say Movie:", movie);
   function handleAdd(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setnewLoading(true);
+    console.log(newLoading);
     if (addingMovie) {
       addingMovie(movie);
     }
@@ -62,9 +67,9 @@ const Form: React.FC<IForm> = ({ type, addingMovie, movieToEdit, loading }) => {
               <button
                 type="submit"
                 className="form-btn saveBtn"
-                disabled={loading}
+                disabled={newLoading}
               >
-                {loading ? <LoadingIcon /> : <>Save</>}
+                {newLoading ? <LoadingIcon /> : <>Save</>}
               </button>
             </div>
           </>
@@ -72,14 +77,14 @@ const Form: React.FC<IForm> = ({ type, addingMovie, movieToEdit, loading }) => {
           <>
             <div className="form-input AddFormbuttons">
               <Link to="/" role="button" className="form-btn cancelBtn">
-                Cancel
+                Back
               </Link>
               <button
                 type="submit"
                 className="form-btn AddMovieBtn"
-                disabled={loading}
+                disabled={newLoading}
               >
-                {loading ? <LoadingIcon /> : <>Add </>}
+                {newLoading ? <LoadingIcon /> : <>Add </>}
               </button>
             </div>
           </>

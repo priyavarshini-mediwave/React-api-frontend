@@ -125,12 +125,12 @@ const Home: React.FC<IHome> = ({ onEditAdd }) => {
             {movies.map((m, index) => (
               <article className="card" key={m.id}>
                 <h1 className="movie-title">{m.title}</h1>
-                <label>
+                <p>
                   Release Year:
                   <span>
                     <strong>{m.year}</strong>
                   </span>
-                </label>
+                </p>
 
                 <div className="cardButtons">
                   <button
