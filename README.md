@@ -41,3 +41,5 @@ Set required pages as Lazy
 ## Made Form into separate component
 
 ## Added LoadingIcon to Api Requests.
+
+# Add media-query to have responsive design
